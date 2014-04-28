@@ -43,10 +43,15 @@ module App
       post do
         user = Model::User.find_by(udid: params[:udid].to_s)
         if user.nil?
-          user = Model::User.new(udid: params[:udid], os: params[:os], token: params[:token])
+          user = Model::User.new(udid: params[:udid], os: params[:os])
           user.save
         else
-          error!('422 Unprocessable Entity', 422)
+          unless user.token.eql?(params[:token])
+            user.token = params[:token]
+            user.save
+          else
+            error!('422 Unprocessable Entity', 422)
+          end
         end
       end
 
