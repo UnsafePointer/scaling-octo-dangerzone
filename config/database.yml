@@ -1,0 +1,6 @@
+development:
+  adapter: postgresql
+  database: scaling-octo-dangerzone
+  username: ruenzuo
+  password: 41689dd0d1dbbf3e7a5d514c0b044493
+  host: localhost
