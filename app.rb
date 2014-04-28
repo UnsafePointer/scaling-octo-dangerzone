@@ -8,6 +8,9 @@ module App
     class User < ActiveRecord::Base
 
     end
+    class Client < ActiveRecord::Base
+
+    end
   end
 
   module View
@@ -20,6 +23,11 @@ module App
   class API < Grape::API
     version 'v1', using: :path
     format :json
+
+    http_digest({ realm: 'App', opaque: '41689dd0d1dbbf3e7a5d514c0b044493' }) do |username|
+      Model::Client.find_by_client_name(username).key
+    end
+
     resource :users do
 
       get do
